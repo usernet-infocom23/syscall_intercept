@@ -67,9 +67,9 @@ _Thread_local int (*intercept_hook_point)(long syscall_number,
 			long *result)
 	__attribute__((visibility("default")));
 
-void (*intercept_hook_point_clone_child)(void)
+_Thread_local void (*intercept_hook_point_clone_child)(void)
 	__attribute__((visibility("default")));
-void (*intercept_hook_point_clone_parent)(long)
+_Thread_local void (*intercept_hook_point_clone_parent)(long)
 	__attribute__((visibility("default")));
 
 bool debug_dumps_on;

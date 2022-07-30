@@ -96,7 +96,7 @@ In addition to hooking syscalls before they would be called, the API
 has one special hook point that is executed after thread creation, right
 after a clone syscall creating a thread returns in a child thread:
 ```c
-void (*intercept_hook_point_clone_child)(void);
+_Thread_local void (*intercept_hook_point_clone_child)(void);
 ```
 Using `intercept_hook_point_clone_child`, one can be notified of thread
 creations.

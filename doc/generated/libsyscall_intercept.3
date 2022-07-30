@@ -98,7 +98,7 @@ after a clone syscall creating a thread returns in a child thread:
 .IP
 .nf
 \f[C]
-void\ (*intercept_hook_point_clone_child)(void);
+_Thread_local\ void\ (*intercept_hook_point_clone_child)(void);
 \f[]
 .fi
 .PP

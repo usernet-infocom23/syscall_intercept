@@ -59,8 +59,8 @@ extern _Thread_local int (*intercept_hook_point)(long syscall_number,
 			long arg4, long arg5,
 			long *result);
 
-extern void (*intercept_hook_point_clone_child)(void);
-extern void (*intercept_hook_point_clone_parent)(long pid);
+extern _Thread_local void (*intercept_hook_point_clone_child)(void);
+extern _Thread_local void (*intercept_hook_point_clone_parent)(long pid);
 
 /*
  * syscall_no_intercept - syscall without interception
