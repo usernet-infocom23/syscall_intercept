@@ -60,7 +60,7 @@
 #include "disasm_wrapper.h"
 #include "magic_syscalls.h"
 
-int (*intercept_hook_point)(long syscall_number,
+_Thread_local int (*intercept_hook_point)(long syscall_number,
 			long arg0, long arg1,
 			long arg2, long arg3,
 			long arg4, long arg5,

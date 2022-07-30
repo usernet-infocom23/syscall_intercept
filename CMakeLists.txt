@@ -96,6 +96,11 @@ add_library(syscall_intercept_base_c OBJECT ${SOURCES_C})
 add_library(syscall_intercept_base_asm OBJECT ${SOURCES_ASM})
 add_library(syscall_intercept_base_clf OBJECT src/cmdline_filter.c)
 
+# Enforce C11
+set_property(TARGET syscall_intercept_base_c PROPERTY C_STANDARD 11)
+set_property(TARGET syscall_intercept_base_asm PROPERTY C_STANDARD 11)
+set_property(TARGET syscall_intercept_base_clf PROPERTY C_STANDARD 11)
+
 if(HAS_NOUNUSEDARG)
 	target_compile_options(syscall_intercept_base_asm BEFORE
 		PRIVATE "-Wno-unused-command-line-argument")
@@ -158,6 +163,10 @@ check_language(CXX)
 if(CMAKE_CXX_COMPILER)
 	enable_language(CXX)
 	add_executable(cpp_test src/cpp_compile_test.cc src/cpp_compile_mock.c)
+
+	# Enforce C11
+	set_property(TARGET cpp_test PROPERTY C_STANDARD 11)
+
 	add_dependencies(syscall_intercept_base_c cpp_test)
 endif()
 
@@ -175,6 +184,10 @@ if(PERFORM_STYLE_CHECKS)
 			COMMAND ${PERL_EXECUTABLE} ${PROJECT_SOURCE_DIR}/utils/check_whitespace.pl
 			-r ${PROJECT_SOURCE_DIR}/src)
 
+		# Enforce C11
+		set_property(TARGET cstyle PROPERTY C_STANDARD 11)
+		set_property(TARGET check_whitespace PROPERTY C_STANDARD 11)
+
 		add_dependencies(syscall_intercept_base_c cstyle check_whitespace)
 	else()
 		message(FATAL_ERROR
@@ -183,6 +196,9 @@ if(PERFORM_STYLE_CHECKS)
 	endif()
 
 	add_executable(check_license_executable utils/check_license/check-license.c)
+
+	# Enforce C11
+	set_property(TARGET check_license_executable PROPERTY C_STANDARD 11)
 
 	add_custom_target(check-license
 		COMMAND

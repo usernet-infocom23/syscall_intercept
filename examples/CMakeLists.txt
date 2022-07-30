@@ -31,11 +31,21 @@
 
 add_library(icap SHARED icap.c)
 
+# Enforce C11
+set_property(TARGET icap PROPERTY C_STANDARD 11)
+
 target_link_libraries(icap PRIVATE syscall_intercept_shared)
 
 add_library(fork_ban SHARED fork_ban.c)
 
+# Enforce C11
+set_property(TARGET fork_ban PROPERTY C_STANDARD 11)
+
 target_link_libraries(fork_ban PRIVATE syscall_intercept_shared)
 
 add_library(syscall_logger SHARED syscall_logger.c syscall_desc.c)
+
+# Enforce C11
+set_property(TARGET syscall_logger PROPERTY C_STANDARD 11)
+
 target_link_libraries(syscall_logger PRIVATE syscall_intercept_shared)

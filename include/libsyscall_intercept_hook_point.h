@@ -48,10 +48,12 @@
  */
 
 #ifdef __cplusplus
+#define _Thread_local thread_local
+
 extern "C" {
 #endif
 
-extern int (*intercept_hook_point)(long syscall_number,
+extern _Thread_local int (*intercept_hook_point)(long syscall_number,
 			long arg0, long arg1,
 			long arg2, long arg3,
 			long arg4, long arg5,
@@ -97,6 +99,8 @@ int syscall_hook_in_process_allowed(void);
 
 #ifdef __cplusplus
 }
+
+#undef _Thread_local
 #endif
 
 #endif

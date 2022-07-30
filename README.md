@@ -77,7 +77,7 @@ memory of a process. The user of this library can provide the
 functionality of almost any syscall in user space, using the very
 simple API specified in the libsyscall_intercept\_hook\_point.h header file:
 ```c
-int (*intercept_hook_point)(long syscall_number,
+_Thread_local int (*intercept_hook_point)(long syscall_number,
 			long arg0, long arg1,
 			long arg2, long arg3,
 			long arg4, long arg5,

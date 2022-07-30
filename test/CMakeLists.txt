@@ -45,6 +45,9 @@ add_executable(asm_pattern asm_pattern.c
 		$<TARGET_OBJECTS:syscall_intercept_base_c>
 		$<TARGET_OBJECTS:syscall_intercept_base_asm>)
 
+# Enforce C11
+set_property(TARGET asm_pattern PROPERTY C_STANDARD 11)
+
 target_link_libraries(asm_pattern
 	PRIVATE ${CMAKE_DL_LIBS} ${capstone_LDFLAGS})
 
@@ -126,6 +129,10 @@ set(CHECK_LOG_COMMON_ARGS
 	-P ${CMAKE_CURRENT_SOURCE_DIR}/check_log.cmake)
 
 add_executable(fork_logging fork_logging.c)
+
+# Enforce C11
+set_property(TARGET fork_logging PROPERTY C_STANDARD 11)
+
 add_test(NAME "fork_logging"
 	COMMAND ${CMAKE_COMMAND}
 	-DTEST_EXTRA_PRELOAD=${TEST_EXTRA_PRELOAD}
@@ -139,6 +146,9 @@ add_test(NAME "fork_logging"
 	${CHECK_LOG_COMMON_ARGS})
 
 add_library(hook_test_preload_o OBJECT hook_test_preload.c)
+
+# Enforce C11
+set_property(TARGET hook_test_preload_o PROPERTY C_STANDARD 11)
 
 add_executable(hook_test hook_test.c)
 
@@ -170,6 +180,10 @@ add_test(NAME "hook_with_static"
 
 
 add_library(hook_test_clone_preload SHARED hook_test_clone_preload.c)
+
+# Enforce C11
+set_property(TARGET hook_test_clone_preload PROPERTY C_STANDARD 11)
+
 target_link_libraries(hook_test_clone_preload PRIVATE syscall_intercept_shared)
 add_test(NAME "hook_clone"
 	COMMAND ${CMAKE_COMMAND}
@@ -184,6 +198,10 @@ add_test(NAME "hook_clone"
 	${CHECK_LOG_COMMON_ARGS})
 
 add_executable(filter_test filter_test.c)
+
+# Enforce C11
+set_property(TARGET filter_test PROPERTY C_STANDARD 11)
+
 target_link_libraries(filter_test PRIVATE syscall_intercept_shared)
 
 add_test(NAME "filter_none"
@@ -235,6 +253,10 @@ set_tests_properties("filter_negative_substring1"
 add_executable(test_clone_thread test_clone_thread.c)
 target_link_libraries(test_clone_thread PRIVATE ${CMAKE_THREAD_LIBS_INIT})
 add_library(test_clone_thread_preload SHARED test_clone_thread_preload.c)
+
+# Enforce C11
+set_property(TARGET test_clone_thread_preload PROPERTY C_STANDARD 11)
+
 target_link_libraries(test_clone_thread_preload PRIVATE syscall_intercept_shared)
 add_test(NAME "clone_thread"
 	COMMAND ${CMAKE_COMMAND}
@@ -247,6 +269,10 @@ set_tests_properties("clone_thread"
 	PROPERTIES PASS_REGULAR_EXPRESSION "clone_hook_child called")
 
 add_library(intercept_sys_write SHARED intercept_sys_write.c)
+
+# Enforce C11
+set_property(TARGET intercept_sys_write PROPERTY C_STANDARD 11)
+
 target_link_libraries(intercept_sys_write PRIVATE syscall_intercept_shared)
 
 add_executable(executable_with_syscall_pie executable_with_syscall.S)
@@ -332,6 +358,10 @@ set_tests_properties("vfork_logging"
 
 
 add_executable(syscall_format syscall_format.c)
+
+# Enforce C11
+set_property(TARGET syscall_format PROPERTY C_STANDARD 11)
+
 target_link_libraries(syscall_format PRIVATE syscall_intercept_shared)
 add_test(NAME "syscall_format_logging"
 	COMMAND ${CMAKE_COMMAND}
